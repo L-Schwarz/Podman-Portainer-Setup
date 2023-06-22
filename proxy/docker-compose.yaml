@@ -6,8 +6,8 @@ volumes:
   acme:
 networks:
   proxy:
-    external:
-      name: proxy
+    external: true
+    name: proxy
 
 services:
   nginx-proxy:
