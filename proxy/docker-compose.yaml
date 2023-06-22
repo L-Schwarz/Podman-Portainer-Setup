@@ -27,7 +27,7 @@ services:
             - '443:443'
     volumes:
             - 'certs:/etc/nginx/certs'
-            - './nginx:/etc/nginx/vhost.d'
+            - 'home/cloud/nas/nginx:/etc/nginx/vhost.d'
             - 'site:/usr/share/nginx/html'
     environment:
             - 'SSL_POLICY=${SSL_POLICY}'
@@ -43,7 +43,7 @@ services:
     volumes:
             - 'acme:/etc/acme.sh'
             - 'certs:/etc/nginx/certs'
-            - './nginx:/etc/nginx/vhost.d'
+            - 'home/cloud/nas/nginx:/etc/nginx/vhost.d'
             - 'site:/usr/share/nginx/html'
     environment:
             - 'DEFAULT_EMAIL=${DEFAULT_EMAIL}'
