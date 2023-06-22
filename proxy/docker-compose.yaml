@@ -10,41 +10,41 @@ volumes:
 
 networks:
   proxy:
-    name: proxy
+    name: 'proxy'
     external: true
 
 services:
   nginx-proxy:
-    image: jwilder/nginx-proxy:latest
+    image: 'jwilder/nginx-proxy:latest'
     container_name: nginx-proxy
     labels: 
             - 'com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy'
-    restart: always
+    restart: 'always'
     ports:
-            - 80:80
-            - 81:81
-            - 443:443
+            - '80:80'
+            - '81:81'
+            - '443:443'
     volumes:
-            - certs:/etc/nginx/certs
-            - ./nginx:/etc/nginx/vhost.d
-            - site:/usr/share/nginx/html
+            - 'certs:/etc/nginx/certs'
+            - './nginx:/etc/nginx/vhost.d'
+            - 'site:/usr/share/nginx/html'
     environment:
             - SSL_POLICY=${SSL_POLICY}
     networks:
-            - proxy
+            - 'proxy'
 
   nginx-proxy-letsencrypt:
-    image: nginxproxy/acme-companion:latest
-    container_name: nginx-proxy-letsencrypt
-    restart: always
+    image: 'nginxproxy/acme-companion:latest'
+    container_name: 'nginx-proxy-letsencrypt'
+    restart: 'always'
     depends_on:
-            - nginx-proxy
+            - 'nginx-proxy'
     volumes:
-            - acme:/etc/acme.sh
-            - certs:/etc/nginx/certs
-            - ./nginx:/etc/nginx/vhost.d
-            - site:/usr/share/nginx/html
+            - 'acme:/etc/acme.sh'
+            - 'certs:/etc/nginx/certs'
+            - './nginx:/etc/nginx/vhost.d'
+            - 'site:/usr/share/nginx/html'
     environment:
             - DEFAULT_EMAIL=${DEFAULT_EMAIL}
     networks:
-            - proxy
+            - 'proxy'
