@@ -1,53 +1,22 @@
 ---
 version: '3'
 
-volumes:
-
-  certs:
-
-  site:
-
-  acme:
-
 networks:
   proxy:
     name: 'proxy'
     external: true
 
 services:
-  nginx-proxy:
-    image: 'jwilder/nginx-proxy:latest'
-    container_name: 'nginx-proxy'
-    labels: 
-            - 'com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy'
-    restart: 'always'
+  proxy:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: 'proxy'
+    restart: always
     ports:
-            - '80:80'
-            - '81:81'
-            - '443:443'
+      - '80:80'
+      - '81:81'
+      - '443:443'
     volumes:
-            - 'certs:/etc/nginx/certs'
-            - '/home/cloud/nas/nginx:/etc/nginx/vhost.d'
-            - 'site:/usr/share/nginx/html'
-            - '/var/run/podman/podman.sock:/var/run/docker.sock:ro'
-    environment:
-            - 'SSL_POLICY=${SSL_POLICY}'
+      - '/home/cloud/nas/nginx/data:/data'
+      - '/home/cloud/nas/nginx/letsencrypt:/etc/letsencrypt'
     networks:
-            - 'proxy'
-
-  nginx-proxy-letsencrypt:
-    image: 'nginxproxy/acme-companion:latest'
-    container_name: 'nginx-proxy-letsencrypt'
-    restart: 'always'
-    depends_on:
-            - 'nginx-proxy'
-    volumes:
-            - 'acme:/etc/acme.sh'
-            - 'certs:/etc/nginx/certs'
-            - '/home/cloud/nas/nginx:/etc/nginx/vhost.d'
-            - 'site:/usr/share/nginx/html'
-            - '/var/run/podman/podman.sock:/var/run/docker.sock:ro'
-    environment:
-            - 'DEFAULT_EMAIL=${DEFAULT_EMAIL}'
-    networks:
-            - 'proxy'
+      - 'proxy'
