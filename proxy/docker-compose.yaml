@@ -29,7 +29,7 @@ services:
             - './nginx:/etc/nginx/vhost.d'
             - 'site:/usr/share/nginx/html'
     environment:
-            - SSL_POLICY=${SSL_POLICY}
+            - 'SSL_POLICY=${SSL_POLICY}'
     networks:
             - 'proxy'
 
@@ -45,6 +45,6 @@ services:
             - './nginx:/etc/nginx/vhost.d'
             - 'site:/usr/share/nginx/html'
     environment:
-            - DEFAULT_EMAIL=${DEFAULT_EMAIL}
+            - 'DEFAULT_EMAIL=${DEFAULT_EMAIL}'
     networks:
             - 'proxy'
