@@ -29,7 +29,7 @@ services:
             - 'certs:/etc/nginx/certs'
             - '/home/cloud/nas/nginx:/etc/nginx/vhost.d'
             - 'site:/usr/share/nginx/html'
-            - '/usr/lib/systemd/system/podman.socket:/tmp/docker.sock:ro'
+            - '/var/run/podman/podman.sock:/var/run/podman/podman.sock:ro'
     environment:
             - 'SSL_POLICY=${SSL_POLICY}'
     networks:
@@ -46,7 +46,7 @@ services:
             - 'certs:/etc/nginx/certs'
             - '/home/cloud/nas/nginx:/etc/nginx/vhost.d'
             - 'site:/usr/share/nginx/html'
-            - '/usr/lib/systemd/system/podman.socket:/tmp/docker.sock:ro'
+            - '/var/run/podman/podman.sock:/var/run/podman/podman.sock:ro'
     environment:
             - 'DEFAULT_EMAIL=${DEFAULT_EMAIL}'
     networks:
