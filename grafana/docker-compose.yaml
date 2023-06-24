@@ -37,7 +37,7 @@ services:
     container_name: prometheus
     restart: always
     volumes:
-      - /home/cloud/container/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml
+      - /home/cloud/container/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml:Z
       - prometheus_data:/prometheus
     command:
       - "--config.file=/etc/prometheus/prometheus.yaml"
@@ -56,7 +56,7 @@ services:
     container_name: grafana
     restart: always
     volumes:
-      - /home/cloud/container/grafana/grafana.ini:/etc/grafana/grafana.ini
+      - /home/cloud/container/grafana/grafana.ini:/etc/grafana/grafana.ini:Z
       - grafana_data:/var/lib/grafana
     networks:
       - monitoring
