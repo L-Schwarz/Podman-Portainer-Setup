@@ -53,8 +53,6 @@ services:
 
   grafana:
     image: grafana/grafana:latest
-    env_file:
-      - grafana.env
     container_name: grafana
     restart: always
     volumes:
