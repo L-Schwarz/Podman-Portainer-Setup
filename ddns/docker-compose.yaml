@@ -15,7 +15,7 @@ services:
   
   ddns-cloudflare-6:
     image: oznu/cloudflare-ddns:latest
-    container_name: ddns-cloudflare-4
+    container_name: ddns-cloudflare-6
     restart: always
     network_mode : host
     environment:
