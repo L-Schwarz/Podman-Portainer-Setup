@@ -18,3 +18,4 @@ services:
       - /home/cloud/nas/bitwarden:/data
     networks:
       - proxy
+      
