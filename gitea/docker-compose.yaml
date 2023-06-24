@@ -1,0 +1,49 @@
+---
+version: '3'
+
+volumes:
+  gitea-db-v:
+
+networks:
+  proxy:
+    name: 'proxy'
+    external: true
+  
+  gitea:
+
+services:
+  gitea:
+    image: gitea/gitea:latest
+    container_name: gitea
+    environment:
+      - USER_UID=${USER_UID}
+      - USER_GID=${USER_GID}
+      - GITEA__database__DB_TYPE=${GITEA__database__DB_TYPE}
+      - GITEA__database__HOST=${GITEA__database__HOST}
+      - GITEA__database__NAME=${GITEA__database__NAME}
+      - GITEA__database__USER=${GITEA__database__USER}
+      - GITEA__database__PASSWD=${GITEA__database__PASSWD}
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /home/cloud/nas/gitea:/data
+    depends_on:
+      - gitea-db          
+    networks:
+      - gitea
+      - proxy
+
+  gitea-db:
+    image: mysql:8
+    container_name: gitea-db
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+    volumes:
+      - gitea-db-v:/var/lib/mysql
+    networks:
+      - gitea
+      
