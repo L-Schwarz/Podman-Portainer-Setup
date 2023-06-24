@@ -46,3 +46,4 @@ services:
       - gitea-db-v:/var/lib/mysql
     networks:
       - gitea
+      
