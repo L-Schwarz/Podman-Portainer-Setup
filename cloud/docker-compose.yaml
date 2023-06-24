@@ -33,7 +33,7 @@ services:
   redis:
     image: redis:alpine
     container_name: redis
-    command: redis-server --save 60 1 --loglevel info
+    command: redis-server --save 60 1
     volumes:
       - /home/cloud/container/redis:/data
     networks:
