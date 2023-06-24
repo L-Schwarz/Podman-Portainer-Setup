@@ -11,7 +11,7 @@ services:
       - "RRTYPE=A"
       - ZONE=${ZONE}
       - API_KEY=${API_KEY}
-      - PROXIED=true  
+      - PROXIED=${PROXIED}  
   
   ddns-cloudflare-6:
     image: oznu/cloudflare-ddns:latest
@@ -22,4 +22,4 @@ services:
       - "RRTYPE=AAAA"
       - ZONE=${ZONE}
       - API_KEY=${API_KEY}
-      - PROXIED=true  
+      - PROXIED=${PROXIED}  
