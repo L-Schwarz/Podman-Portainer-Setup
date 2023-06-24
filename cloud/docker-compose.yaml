@@ -56,3 +56,4 @@ services:
       - MYSQL_USER=${MYSQL_USER}
     networks:
             - cloud
+    
