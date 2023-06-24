@@ -1,0 +1,57 @@
+---
+version: '3'
+
+volumes:
+  db:
+
+networks:
+  proxy:
+    name: 'proxy'
+    external: true
+  
+  cloud:
+
+services:
+  nextcloud:
+    image: nextcloud:latest
+    container_name: nextcloud
+    restart: always
+    depends_on:
+       - nextcloud-db
+    volumes:
+      - /home/cloud/nas/nextcloud:/var/www/html
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - REDIS_HOST=redis
+    networks:
+      - cloud
+      - proxy
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    command: redis-server --save 60 1 --loglevel info
+    volumes:
+      - /home/cloud/container/redis:/data
+    networks:
+      - cloud
+    restart: always
+
+  nextcloud-db:
+    image: mariadb:10.5
+    container_name: nextcloud-db
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    restart: always
+    volumes:
+      - db:/var/lib/mysql
+
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+    networks:
+            - cloud
