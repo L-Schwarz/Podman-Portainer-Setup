@@ -24,6 +24,7 @@ services:
       - redis-cryptgeon
     environment:
       - SIZE_LIMIT=${SIZE_LIMIT}
+      - REDIS=${REDIS}
     restart: always
     networks:
       - crypt
