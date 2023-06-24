@@ -3,6 +3,7 @@ version: '3'
 
 volumes:
   db:
+  redisVol:
 
 networks:
   proxy:
@@ -35,7 +36,7 @@ services:
     container_name: redis
     command: redis-server --save 60 1
     volumes:
-      - /home/cloud/container/redis:/data
+      - redisVol:/data
     networks:
       - cloud
     restart: always
