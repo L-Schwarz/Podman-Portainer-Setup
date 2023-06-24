@@ -1,0 +1,31 @@
+---
+version: '3'
+
+networks:
+  proxy:
+    name: 'proxy'
+    external: true
+  
+  crypt:
+
+services:
+  redis-cryptgeon:
+    image: redis:latest
+    container_name: redis-cryptgeon
+    restart: always
+    command: redis-server --maxmemory 1gb --maxmemory-policy allkeys-lru
+    networks:
+      - crypt
+
+  cryptgeon:
+    image: cupcakearmy/cryptgeon:latest
+    container_name: cryptgeon
+    depends_on:
+      - redis-cryptgeon
+    environment:
+      - SIZE_LIMIT=${SIZE_LIMIT}
+      - REDIS=${REDIS}
+    restart: always
+    networks:
+      - crypt
+      - proxy
