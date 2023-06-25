@@ -16,7 +16,7 @@ networks:
 services:
   node-exporter:
     image: prom/node-exporter:latest
-    restart: always
+    restart: unless-stopped
     container_name: node-exporter
     volumes:
       - /proc:/host/proc:ro
@@ -35,7 +35,7 @@ services:
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
-    restart: always
+    restart: unless-stopped
     volumes:
       - /home/cloud/container/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml:Z
       - prometheus_data:/prometheus
@@ -54,7 +54,7 @@ services:
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
-    restart: always
+    restart: unless-stopped
     volumes:
       - /home/cloud/container/grafana/grafana.ini:/etc/grafana/grafana.ini:Z
       - grafana_data:/var/lib/grafana

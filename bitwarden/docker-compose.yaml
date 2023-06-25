@@ -10,7 +10,7 @@ services:
   bitwarden:
     image: vaultwarden/server:latest
     container_name: bitwarden
-    restart: always
+    restart: unless-stopped
     environment:
       - WEBSOCKET_ENABLED=${WEBSOCKET_ENABLED}
       - SIGNUPS_ALLOWED=${SIGNUPS_ALLOWED}

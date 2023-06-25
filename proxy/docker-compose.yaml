@@ -10,7 +10,7 @@ services:
   proxy:
     image: 'jc21/nginx-proxy-manager:latest'
     container_name: 'proxy'
-    restart: always
+    restart: unless-stopped
     ports:
       - '80:80'
       - '81:81'

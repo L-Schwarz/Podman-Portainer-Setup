@@ -15,6 +15,7 @@ services:
   gitea:
     image: gitea/gitea:latest
     container_name: gitea
+    restart: unless-stopped
     environment:
       - USER_UID=${USER_UID}
       - USER_GID=${USER_GID}
@@ -36,7 +37,7 @@ services:
   gitea-db:
     image: mysql:8
     container_name: gitea-db
-    restart: always
+    restart: unless-stopped
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_USER=${MYSQL_USER}
