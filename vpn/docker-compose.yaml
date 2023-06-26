@@ -1,0 +1,30 @@
+---
+version: '3'
+
+volumes:
+  vpn:
+
+networks:
+  proxy:
+    name: 'proxy'
+    external: true
+
+services:
+  vpn:
+    image: weejewel/wg-easy:latest
+    container_name: vpn
+    restart: always
+    volumes: 
+      - vpn:/etc/wireguard
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    sysctls:
+      - net.ipv4.ip_forward=1
+    environment:
+      - PASSWORD=${PASSWORD}
+      - WG_HOST=${WG_HOST}
+    ports:
+      - 51820:51820/udp
+    networks:
+      - proxy
